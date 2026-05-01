@@ -1,62 +1,59 @@
-# Partial Correlation-Based Connectedness: Extreme Dependence Among Commodities
+# Extreme Risk Spillovers in Commodity Markets: Multilayer Networks in the Frequency Domain
 
-> **Published in:** Energy Economics, Vol. 144 (2025), Article 108421
-> **Authors:** Syed Jawad Hussain Shahzad · Elie Bouri · Sitara Karim · Perry Sadorsky
+> A research paper extending Shahzad et al. (2025) to U.S. commodity markets using multilayer frequency-domain network analysis.
 
 ---
 
 ## What This Paper Is About
 
-This paper proposes a new method — **partial correlation-based connectedness** — to study how 22 commodity markets are linked to each other under both normal and extreme market conditions, and examines what that means for portfolio construction.
+This paper studies how **extreme risks spread across commodity markets** — and crucially, *at what speed* those risks travel. It builds three-layer frequency networks (short, medium, and long-term) to map how shocks move through Energy, Metals, and Agricultural commodities, and identifies which commodities are the biggest sources and recipients of systemic risk.
 
-It compares this approach against the widely used **Diebold-Yilmaz (GFEVD)** connectedness method and shows why accounting for the *sign* and *tail behavior* of correlations matters.
+The core argument: standard connectedness models miss the full picture because they treat all shocks as equal regardless of time horizon. This paper fixes that.
 
 ---
 
 ## Data
 
-- **22 commodity futures** across 4 groups: Energy, Agricultural, Precious Metals, Industrial Metals
-- **Period:** September 1, 2005 – June 5, 2024 (~4,895 daily observations)
-- Covers major crises: Global Financial Crisis (2007–09), Oil Price Collapse (2014–16), COVID-19 (2020), Russia-Ukraine War (2022)
+- **13 commodity futures** across 4 groups: Energy (Crude Oil, Heating Oil, Gasoline), Agricultural (Corn, Wheat, Soybeans, Rice, Sugar), Precious Metals (Gold, Silver, Platinum, Palladium), Industrial Metals (Copper)
+- **Period:** January 1, 2006 – June 30, 2025 (~4,909 daily observations)
+- Covers: Global Financial Crisis (2008–09), Oil Price Collapse (2014–16), COVID-19 (2020), Russia-Ukraine War (2022)
+
+---
+
+## Methodology
+
+| Tool | Purpose |
+|---|---|
+| **CAViaR** (Engle & Manganelli, 2004) | Model extreme downside risk (VaR) for each commodity |
+| **Leave-One-Out (LOO)** | Identify which commodities contribute most to systemic risk |
+| **LASSO-VAR-BK** (Baruník & Křehlík, 2018) | Frequency-domain spillover estimation in high-dimensional settings |
+| **Multilayer Networks** (3 layers) | Short-term (1–5 days), Medium-term (5–20 days), Long-term (20+ days) |
+| **Network Measures** | ACS, AND, UER, AEO, MPC, P(out), P(in) — centrality and overlap metrics |
 
 ---
 
 ## Key Findings
 
-1. **Better crisis detection** — The partial correlation approach spikes at the extreme lower quantile *before* major crises (GFC, COVID-19, Ukraine war), which the GFEVD approach fails to detect.
+**1. Risk is a short-term phenomenon**
+Spillover intensity decays by over 90% between the 1-day and 22-day horizons. Systemic risk is concentrated at the shortest timescales, though the *structure* of who transmits to whom stays stable across all horizons.
 
-2. **Asymmetric tail dependence** — Lower-tail connectedness is consistently stronger than upper-tail, confirming that commodity markets co-crash more than they co-boom.
+**2. Energy dominates — always**
+Crude Oil and Heating Oil rank #1 and #2 in LOO scores across all three frequency layers (~21% each). Energy is the unidirectional net risk exporter: it consistently pushes shocks to Metals and Agriculture, with almost no reverse flow.
 
-3. **Unstable structure during crises** — The connectedness ranking of commodities shifts significantly during turbulent periods, a feature invisible to the GFEVD approach.
+**3. Crises don't rewire the network — they amplify it**
+During the GFC and COVID-19, the fundamental risk hierarchy (energy → metals → agriculture) remained unchanged. Crises just made existing connections much stronger and faster.
 
-4. **Industrial metals transmit; agricultural commodities receive** — Copper, Zinc, and Lead are the dominant net transmitters of shocks; Coffee, Rice, and Cocoa are the largest net receivers.
+**4. Two types of oil risk**
+- **Crude Oil** = stable, structural risk node. Consistently the largest systemic vulnerability, regardless of market conditions.
+- **Brent Crude** = dynamic, geopolitically sensitive risk driver. Its systemic role swings sharply with global events.
 
----
-
-## Portfolio Strategy
-
-The paper introduces the **Inverse FROM Connectedness Portfolio (IFCP)**, which underweights commodities with high spillover exposure and high volatility.
-
-| Strategy | Sharpe Ratio | Volatility | Max Drawdown |
-|---|---|---|---|
-| Equally Weighted (EW) | 0.005 | 5.17% | −32.95% |
-| Min Variance (minVar) | 0.286 | 5.74% | −32.03% |
-| **IFCP** | **0.118** | **5.29%** | **−33.15%** |
-| **IFCP (Lower Tail)** | **0.176** | **5.11%** | **−29.62%** |
-| Min Connectedness (MCP) | 0.017 | 5.59% | −31.64% |
-
-> IFCP outperforms MCP and most benchmarks on a risk-adjusted basis. Agricultural commodities receive the highest portfolio weight across all strategies due to their relative stability during crises.
+**5. Agricultural commodities offer the most diversification**
+Agriculture shows the lowest intra-group connectedness and absorbs rather than transmits cross-sector shocks — making it the most useful diversifier in a commodity portfolio.
 
 ---
 
-## Why It Matters
+## Practical Implications
 
-- Correlation **sign** matters for portfolios — two negatively correlated assets show high connectedness under GFEVD but offer *more* diversification, not less.
-- Partial correlations provide a more realistic picture of systemic risk in commodity markets, especially during crises.
-- Useful for **investors, risk managers, and policymakers** monitoring commodity market stability.
-
----
-
-## JEL Classification
-
-`G11` — Portfolio Choice · `G15` — International Financial Markets · `Q43` — Energy and the Macroeconomy
+- **Investors:** Cross-sector diversification (especially into agriculture) reduces long-term exposure; within-sector diversification provides limited benefit given tight intra-group coupling.
+- **Risk managers:** Short-term monitoring of Crude Oil LOO and network ACS serves as an effective early-warning system for systemic stress.
+- **Policymakers:** Energy shocks translate rapidly into food and metal cost pressures — interventions targeting energy price volatility have cross-sector stabilizing effects.
